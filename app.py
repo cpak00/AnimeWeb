@@ -83,7 +83,7 @@ def getNotifaction():
         animes = day.xpath('./div[@class="contect_week"]/a')
         for anime in animes:
             info = {'animeName': '', 'link': ''}
-            info['link'] = '/' + ''.join(anime.xpath('./@href')).split('/')[-2]
+            info['link'] = '/anime/' + ''.join(anime.xpath('./@href')).split('/')[-2]
             info['animeName'] = ''.join(anime.xpath('.//text()'))
             menu['animes'].append(info)
         menu['animes'] = menu['animes'][1:]
