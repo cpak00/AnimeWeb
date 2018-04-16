@@ -1,0 +1,36 @@
+{% extends "index.html" %} 
+{% block body %}
+<div class="row">
+<script>
+    var str =
+        `<div class="col s8 offset-s2"> 
+                <div class="card horizontal"> 
+                    <div class="card-stacked">
+                        <div class="card-title">
+                            {animeName}
+                        </div>
+                        <div class="card-action">
+                            看到:
+                            <a href="/anime/{location}" target="_blank">{id}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+    for (var i in localStorage) {
+        if (i == 'length') {
+            continue;
+        }
+        var temp = str;
+        try{
+        temp = temp.replace('{location}', i)
+        temp = temp.replace('{id}', JSON.parse(localStorage[i])['id'])
+        temp = temp.replace('{animeName}', JSON.parse(localStorage[i])['animeName'])
+        document.write(temp)
+        }
+        catch(err){
+            continue;
+        }
+    }
+</script>
+</div>
+{% endblock %}

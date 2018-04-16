@@ -1,0 +1,54 @@
+{% extends "index.html" %} {% block body %}
+<div class="row">
+    <script>
+        var str =
+            `<div class="col s8 offset-s2"> 
+                <div class="card horizontal"> 
+                    <div class="card-stacked">
+                        <div class="card-title">
+                            <a href="{link}">{animeName}</a>
+                        </div>
+                        <div class="card-content">
+                            看到:{id}
+                        </div>
+                        <div class="card-action">
+                            <a onclick="unstar({i});"><i class="material-icons small right">delete</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        var list = localStorage['star'].split(';');
+        for (var i = 0; i < list.length - 1; i++) {
+            var temp = str;
+            try {
+                var info = JSON.parse(list[i]);
+                temp = temp.replace('{i}', i)
+                temp = temp.replace('{link}', info['link'])
+                temp = temp.replace('{animeName}', info['animeName'])
+
+                var a = localStorage[info['link'].split('/')[2]];
+                var b = JSON.parse(a)
+                temp = temp.replace('{id}', b['id'])
+            } catch (err) {
+                temp = temp.replace('{id}', '')
+                continue
+            } finally {
+                document.write(temp)
+            }
+        }
+
+        function unstar(i) {
+            var list = localStorage['star'].split(';');
+            var result = '';
+            for (var j = 0; j < list.length; j++) {
+                if (j != i && list[j] != '') {
+                    result += (list[j] + ';');
+                }
+            }
+            localStorage['star'] = result;
+            alert('删除' + JSON.parse(list[i])['animeName'])
+            window.location.reload();
+        }
+    </script>
+</div>
+{% endblock %}

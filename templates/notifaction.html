@@ -1,0 +1,29 @@
+{% extends "index.html" %} 
+{% block body %}
+<div class="row">
+    <div class="col s4">
+        新番时间表
+    </div>
+    <div class="col s8 offset-s2">
+    {% for day in notif %}
+    <div class="card">
+        <div class="card-title">
+            <span class="
+            {% if loop.index == today %}
+            red-text
+            {% elif loop.index == today-1 %}
+            grey-text
+            {% endif %}">{{day['day']}}</span>
+        </div>
+        <div class="card-action">
+            {% for anime in day['animes'] %}
+                <a href="{{anime['link']}}">
+                    {{anime['animeName']}}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

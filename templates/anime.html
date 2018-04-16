@@ -1,0 +1,30 @@
+{% extends "index.html" %} 
+{% block body %}
+<div class="row col s8 center">
+    {{animeName}}
+</div> 
+<div class="row">
+    <div class="col s4 left">
+        上次观看到:
+        <script>
+            var lastWatch = JSON.parse(localStorage['{{name}}'])['id']
+            if(lastWatch) {
+                document.write(lastWatch)
+            }
+        </script>
+    </div>
+</div>
+<div class="row">
+    {% for each in result %}
+    <div class="col s8 offset-s2">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-action">
+                    <a href="{{each.location}}" target="_blank" onclick="localStorage['{{name}}']='{&quot;id&quot;:&quot;{{each.id}}&quot;,&quot;animeName&quot;:&quot;{{animeName}}&quot;}';window.location.reload();">{{each.id}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
